@@ -26,10 +26,14 @@
 
             </fieldset>
             <fieldset class="">
+                
+                {# <input type="text" class="" autocomplete="current-password" placeholder="Mots de pass"> #}
 
-                {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+                {{ form_row(registrationForm.plainPassword, {label: 'Mots de passe'}) }}
+                <br>
                 {{ form_row(registrationForm.RGPDConsent) }}
                 <button type="submit" class="btn">Inscription</button>
+                <a href="{{ path('app_login')}}" class="btn">Connexion</a>
 
             </fieldset>
             {{ form_errors(registrationForm) }}
