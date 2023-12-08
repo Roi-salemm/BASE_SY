@@ -4,26 +4,41 @@ namespace App\Controller;
 
 // use App\Repository\CategoriesRepository;
 use App\Entity\Categories;
+use App\Repository\CategoriesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/categories', name: 'categories_')]
+// #[Route('/categories', name: 'categories_')]
 class CategoriesController extends AbstractController
 {
-    #[Route('/{slugName}', name: 'list')]
-    public function list(Categories $category): Response
+
+    // ^^ categoriesList
+    #[Route('/categoriesList', name: 'categoriesList')]
+    public function list( $slugName, CategoriesRepository $categoriesRepository): Response
     {
         // var_dump($slugName);
+        $category = $categoriesRepository->findBy([], ['categoryOrder' => 'asc']);
 
         return $this->render('categories/list.html.twig', [
-            'category' => $category,
-            // 'slug_name' => $slugName,
+            'categories' => $category,
+            'slugName' => $slugName,
             ]);
 
-
-        
     }
+
+    // #[Route('/categorie/{slugName}', name: 'categoriesList')]
+    // public function list( $slugName, CategoriesRepository $categoriesRepository): Response
+    // {
+    //     // var_dump($slugName);
+    //     $category = $categoriesRepository->findBy([], ['categoryOrder' => 'asc']);
+
+    //     return $this->render('categories/list.html.twig', [
+    //         'categories' => $category,
+    //         'slugName' => $slugName,
+    //         ]);
+
+    // }
 
 
 
@@ -36,10 +51,6 @@ class CategoriesController extends AbstractController
     //         'controller_name' => 'ProductsController',
     //     ]);
     // }
-
-
-
-
 
 
     // A rajouter quand l'entity product serra cree 

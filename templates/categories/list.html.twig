@@ -4,16 +4,21 @@
 
 {% block body %}
 
-{{ dump() }} 
+{# {{ dump() }}  #}
 
+    {% for data in categories %}
+        
+        <main class="container">
+            <section class="row">
+                <div class="col-12">
+                    {# <h1>Liste des produits de la catégorie {{categories.name|raw }}</h1> #}
+                    <h1>Liste des produits de la catégorie {{data.name}}</h1>
+                    {# <p>{{ categories }} </p> #}
+                    <p>{{ slugName }} </p>
+                </div>
+            </section>
+        </main>
 
-    <main class="container">
-        <section class="row">
-            <div class="col-12">
-                <h1>Liste des produits de la catégorie {{category.name}}</h1>
-            </div>
-        </section>
-    </main>
-
+    {% endfor %}
 
 {% endblock %}
