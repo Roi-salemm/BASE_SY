@@ -26,7 +26,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger,  ProductsRepository $productsRepository): Response
+    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger,  ProductsRepository $productsRepository, PictureService $pictureService): Response
     {
         //* Pour refuser les users avec d'autre role que ROLE_ADMIN
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -48,19 +48,19 @@ class ProductsController extends AbstractController
         //* si le formulaire est soumis && valide
         if($productForm->isSubmitted() && $productForm->isValid()){
             // On récupère les images
-            // $images = $productForm->get('images')->getData();
+            $images = $productForm->get('images')->getData();
             
-            // foreach($images as $image){
-            //     // On définit le dossier de destination
-            //     $folder = 'products';
+            foreach($images as $image){
+                // On définit le dossier de destination
+                $folder = 'products';
 
-            //     // On appelle le service d'ajout
-            //     $fichier = $pictureService->add($image, $folder, 300, 300);
+                // On appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 300, 300);
 
-            //     $img = new Images();
-            //     $img->setName($fichier);
-            //     $product->addImage($img);
-            // }
+                $img = new Images();
+                $img->setName($fichier);
+                $product->addImage($img);
+            }
 
             //* On génère le slug pour spliter() le prompt d'input
             $slug = $slugger->slug($product->getName());

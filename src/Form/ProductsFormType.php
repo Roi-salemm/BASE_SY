@@ -7,8 +7,10 @@ use App\Entity\Products;
 use App\Repository\CategoriesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
 
 class ProductsFormType extends AbstractType
 {
@@ -37,6 +39,20 @@ class ProductsFormType extends AbstractType
                         ->where('c.parent IS NOT NULL')         // trie les category qui ont un parent 
                         ->orderBy('c.name', 'ASC');             // Trie 
                 }  
+            ])
+            ->add('images', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    // new All(
+                    //     new Image([
+                    //         'maxWidth' => 1280,
+                    //         'maxWidthMessage' => 'L\'image doit faire {{ max_width }} pixels de large au maximum'
+                    //     ])
+                    // )
+                ]
             ])
         ;
     }

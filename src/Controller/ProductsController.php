@@ -9,15 +9,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-// #[Route('/produits', name: 'produits_')]
+#[Route('/produits', name: 'produits_')]
 class ProductsController extends AbstractController
 {
     // ^^ indexProduits
     #[Route('/indexProduits', name: 'indexProduits')]
-    public function index(): Response
+    public function index(Categories $categories, ProductsRepository $productsRepository): Response
     {
+
+        $pro = $productsRepository->findBy([], ['name' => 'asc']);
+      
+        // dd($pro);
+        
         return $this->render('products/index.html.twig', [
             'controller_name' => 'ProductsController',
+            'products' => $pro, 
+            'categories' => $categories,
         ]);
     }
 
@@ -27,6 +34,7 @@ class ProductsController extends AbstractController
     {
 
         $pro = $productsRepository->findBy([], ['name' => 'asc']);
+      
 
         return $this->render('products/details.html.twig', [
             'controller_name' => 'ProductsController',

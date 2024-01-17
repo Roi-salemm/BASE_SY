@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+
 
 {% block title %}Details de {{ categories.name }}{% endblock %}
 
@@ -10,6 +10,7 @@
             <div class="col-12">
                 {% for item in products %}
                     <h1>{{ item.name }}</h1>
+                    <img src="{{ asset('assets/uploads/products/mini/300x300-'~ item.images[0].name ) }}" class="card-img-top" alt="{{ item.name }}">
                 {% endfor %}
                 
             </div>
