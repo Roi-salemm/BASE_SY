@@ -63,15 +63,17 @@ class ProductsController extends AbstractController
             // }
 
             //* On génère le slug pour spliter() le prompt d'input
-            // $slug = $slugger->slug($product->getName());
-            // $product->setSlug($slug);
+            $slug = $slugger->slug($product->getName());
+            $product->setSlug($slug);
 
             // On arrondit le prix 
             $prix = $product->getPrice() * 100;
             $product->setPrice($prix);
     
   
- dd($product);
+//  dd($product);
+
+
             // On stocke
             $em->persist($product);
             $em->flush();

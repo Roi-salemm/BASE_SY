@@ -24,6 +24,7 @@ class CouponsTypes
     public function __construct()
     {
         $this->coupons = new ArrayCollection();
+        // $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

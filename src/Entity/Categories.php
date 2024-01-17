@@ -34,6 +34,7 @@ class Categories
     {
         $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
+        // $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

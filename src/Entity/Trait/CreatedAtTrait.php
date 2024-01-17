@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait CreatedAtTrait
 {
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private $created_at;
+    private $created_at = null;
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
