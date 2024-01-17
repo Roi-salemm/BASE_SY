@@ -28,6 +28,39 @@ class MainController extends AbstractController
             'products' => $pro,
         ]);
     }
+
+    // && Trois boules de chargement avec gsap
+    #[Route('/loader', name: 'app_loader')]
+    public function loader(): Response
+    {
+
+        return $this->render('fonctionality/loader.html.twig',[
+            'loader' => 'loader',
+        ]);
+    }
+
+    // && card 3d qui bouge au contact de la souris avzec gsap
+    #[Route('/card', name: 'app_card')]
+    public function card(): Response
+    {
+
+        return $this->render('fonctionality/card.html.twig',[
+            'loader' => 'loader',
+        ]);
+    }
+
+
+    // && Menu nav-1 (menu standard sans fond)
+    #[Route('/nav-1', name: 'app_nav-1')]
+    public function nav1(): Response
+    {
+
+        return $this->render('menu/nav-1.html.twig',[
+            'loader' => 'loader',
+        ]);
+    }
+
+
 }
 
 

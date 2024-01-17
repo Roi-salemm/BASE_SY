@@ -15,7 +15,7 @@
 
         {% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}{% endblock %}
+        
 
     </head>
     <body>
@@ -38,11 +38,14 @@
         {% include "_partials/_footer.html.twig" %}
 
 
+
+        {% block javascripts %}{% endblock %}
 {# Les fichiers JS  #}
-        <script src="{{ asset('assets/js/scripts.js') }}" defer></script>
+        <script src="{{ asset('assets/js/script.js') }}" defer></script>
         <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
 
 {# Les librairies JS #}
+        {# GSAP #}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     </body>
