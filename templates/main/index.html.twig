@@ -15,9 +15,9 @@
         </div>
         <div class="col-12">
 
-            <a href="{{ path('indexProduits') }}">Page des produits</a>
+            {# <a href="{{ path('indexProduits') }}">Page des produits</a>
 
-            <a href="{{ path('categoriesList') }}">Page des categories</a>
+            <a href="{{ path('categoriesList') }}">Page des categories</a> #}
 
             {# <a href="{{ path('') }}"></a>
 
@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <h3 class="card-title">{{ cat.name }}</h3>
                             {# {{categories.name}} #}
-                            <a href="{{ path('produitsDetails', {"slug": cat.name }) }}" class="btn btn-primary">voir {{ cat.name }}</a>
+                            {# <a href="{{ path('produitsDetails', {slug: cat.name, }) }}" class="btn btn-primary">voir {{ cat.name }}</a> #}
                             {# <a href="#" class="btn btn-primary">Voir les produits</a> #}
                             
                         </div>

@@ -1,3 +1,17 @@
 body{
     background-color: rgb(133, 128, 121);
 }
+.vitrine{
+    height: auto;
+    width: 90%;
+    background-color: aqua;
+}
+.vitrine__liste{
+    display: flex;
+    flex-direction: row;
+
+}
+.vitrine__image{
+    height: 150px;
+    width: 150px;
+}

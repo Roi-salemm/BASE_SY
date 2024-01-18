@@ -26,7 +26,9 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger,  ProductsRepository $productsRepository, PictureService $pictureService): Response
+    public function add(Request $request, EntityManagerInterface $em, 
+    SluggerInterface $slugger,  ProductsRepository $productsRepository, 
+    PictureService $pictureService): Response
     {
         //* Pour refuser les users avec d'autre role que ROLE_ADMIN
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -38,25 +40,19 @@ class ProductsController extends AbstractController
         //* crée le formulaire
         $productForm = $this->createForm(ProductsFormType::class, $product);
 
-       
-
         //^^ traite la requête du formulaire
         $productForm->handleRequest($request);
 
-      
-
         //* si le formulaire est soumis && valide
         if($productForm->isSubmitted() && $productForm->isValid()){
-            // On récupère les images
+            //^^ On récupère les images
             $images = $productForm->get('images')->getData();
             
             foreach($images as $image){
                 // On définit le dossier de destination
                 $folder = 'products';
-
                 // On appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 300, 300);
-
                 $img = new Images();
                 $img->setName($fichier);
                 $product->addImage($img);
@@ -69,10 +65,8 @@ class ProductsController extends AbstractController
             // On arrondit le prix 
             $prix = $product->getPrice() * 100;
             $product->setPrice($prix);
-    
-  
-//  dd($product);
 
+            //  dd($product);
 
             // On stocke
             $em->persist($product);
@@ -81,7 +75,7 @@ class ProductsController extends AbstractController
             $this->addFlash('success', 'Produit ajouté avec succès');
 
             // On redirige
-            return $this->redirectToRoute('admin_products_index');
+            return $this->redirectToRoute('admin_products_add');
         }
 
 
@@ -128,19 +122,19 @@ class ProductsController extends AbstractController
         //On vérifie si le formulaire est soumis ET valide
         if($productForm->isSubmitted() && $productForm->isValid()){
             // On récupère les images
-            // $images = $productForm->get('images')->getData();
+            $images = $productForm->get('images')->getData();
 
-            // foreach($images as $image){
-            //     // On définit le dossier de destination
-            //     $folder = 'products';
+            foreach($images as $image){
+                // On définit le dossier de destination
+                $folder = 'products';
 
-            //     // On appelle le service d'ajout
-            //     $fichier = $pictureService->add($image, $folder, 300, 300);
+                // On appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 300, 300);
 
-            //     $img = new Images();
-            //     $img->setName($fichier);
-            //     $product->addImage($img);
-            // }
+                $img = new Images();
+                $img->setName($fichier);
+                $product->addImage($img);
+            }
             
             
             // On génère le slug
