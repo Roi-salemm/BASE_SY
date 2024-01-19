@@ -8,13 +8,60 @@
     {% endblock %}
 
 
+
 {% block body %}
-    <h1>Administration des produits</h1>
+    <div class="container">
+        <div class="row">
+            {% include "_partials/_adminnav.html.twig" %}
+            <main class="col-9 border border-light bg-white p-2">
+                <h1>Les Produits</h1>
 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Nom</th>
+                            <th>Prix</th>
+                            <th>Stock</th>
+                            <th>Categorie</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+{# <pre>
+    {{ dump(produits) }}
+</pre> #}
+                    <tbody>
+                        {% for produit in produits %}
+                            <tr>
+                                <td>{{ produit.id }}</td>
+                                <td><img width="50px" height="50px" src="{{ asset('assets/uploads/products/mini/300x300-'~ produit.images[0].name ) }}" alt="{{ produit.name }}"></td>
+                                <td>{{ produit.name}}</td>
+                                <td>{{ produit.price / 100}}</td>
+                                <td>{{ produit.stock }}</td>
+                                <td>{{ produit.categories.name }}</td>
+                                <td>
+                                    <button class="" href="{{ path('admin_products_edit', {id: produit.id}) }}">Modifier</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
 
+                </table>
 
+            </main>
+        </div>
+    </div>
 {% endblock %}
-
 
     {% block javascripts %}
     {% endblock %}
+
+
+
+
+
+
+
+
+    

@@ -4,7 +4,7 @@ body{
 .vitrine{
     height: auto;
     width: 90%;
-    background-color: aqua;
+    background-color: royalblue;
 }
 .vitrine__liste{
     display: flex;

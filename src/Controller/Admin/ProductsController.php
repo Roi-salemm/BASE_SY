@@ -22,7 +22,9 @@ class ProductsController extends AbstractController
     public function index(ProductsRepository $productsRepository): Response
     {
         $produits = $productsRepository->findAll();
-        return $this->render('admin/products/index.html.twig', compact('produits'));
+        return $this->render('admin/products/index.html.twig', 
+        compact('produits')
+        );
     }
 
     #[Route('/ajout', name: 'add')]
@@ -90,18 +92,6 @@ class ProductsController extends AbstractController
         // ['productForm' => $productForm]
     }
 
-
-
-
-
-    // #[Route('/ajout', name: 'add')]
-    // public function add(): Response
-    // {
-    //     //* Pour refuser les users avec d'autre role que ROLE_ADMIN
-    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-    //     return $this->render('admin/products/index.html.twig');
-    // }
 
 
     #[Route('/edition/{id}', name: 'edit')]

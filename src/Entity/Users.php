@@ -10,6 +10,7 @@ use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email (entity/users)')]
@@ -39,6 +40,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    // #[Assert\Regex(
+    //     pattern: '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/',
+    //     match: false,
+    //     message: 'Your name cannot contain a number',
+    //     )]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
