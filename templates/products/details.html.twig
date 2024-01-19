@@ -32,22 +32,30 @@
     {# {{ product.name }} #}
 {% endblock %}
 
+
 {% block body %}
+{#//^^  Page de details de produit #}
+
     <main class="container">
         <section class="row">
+
             <div class="col-12">
                  {# {{ dump() }} #}
                 <h1>{{ product.name }}</h1>
             </div>
-            {# <div class="col-6">
+
+            <div class="col-6">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
+                        {# image correspont a $image dans l'entity products #}
+                        {# le for dit : tourne de 1 a lenght. Crée un indicateur en bas de l'image #}
                         {% for iteration in 1..product.images|length %}
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}" {{ (loop.first ) ?'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
                         {% endfor %}
                     </div>
                     <div class="carousel-inner">
                         {% for image in product.images %}
+                            {# la ligne veut dire = si loop (deffilement d'image) = 0 alors active (play) si non ne fait rien #}
                             <div class="carousel-item {{ (loop.first ) ? 'active' : '' }}">
                                 <img src="{{ asset('assets/uploads/products/mini/300x300-') ~ image.name }}" class="d-block w-100" alt="{{ product.name }}">
                             </div>
@@ -62,17 +70,25 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-            </div> #}
-            {# <div class="col-6"> #}
-                {# <p>{{ product.description }}</p> #}
-                {# <p>Catégorie : {{ product.categories.name }}</p>
+            </div>
+
+            <div class="col-6">
+                <p>{{ product.description }}</p> 
+
+                {# recherche le nom de la categorie du produit #}
+                <p>Catégorie : {{ product.categories.name }}</p>
+
                 <p>Prix : {{ product.price / 100 }} €</p>
+
+                {# gestion des commande en fonction du stock #}
                 {% if product.stock > 0 %}
                     <a href="{{ path('cart_add', {id: product.id}) }}" class="btn btn-success">Ajouter au panier</a>
                 {% else %}
                     <p class="text-danger">Temporairement en rupture de stock</p>
                 {% endif %}
+
             </div>
-        </section> #}
+
+        </section>
     </main>
 {% endblock %}

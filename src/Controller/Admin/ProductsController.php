@@ -26,9 +26,12 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $em, 
-    SluggerInterface $slugger,  ProductsRepository $productsRepository, 
-    PictureService $pictureService): Response
+    public function add(
+        Request $request, 
+        EntityManagerInterface $em, 
+        SluggerInterface $slugger,  
+        ProductsRepository $productsRepository, 
+        PictureService $pictureService): Response
     {
         //* Pour refuser les users avec d'autre role que ROLE_ADMIN
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -101,11 +104,21 @@ class ProductsController extends AbstractController
     // }
 
 
-
-
     #[Route('/edition/{id}', name: 'edit')]
-    public function edit(Products $product, Request $request, EntityManagerInterface $em, SluggerInterface $slugger, PictureService $pictureService): Response
+    public function edit(
+        $id,
+        Request $request, 
+        EntityManagerInterface $em, 
+        SluggerInterface $slugger, 
+        PictureService $pictureService,
+        ProductsRepository $productsRepository): Response
     {
+       
+        
+        $product = $productsRepository->find($id);
+
+        // dd($product);
+
         //* Verif de si l'utilisateur peut editer avec le voter
         $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
 
