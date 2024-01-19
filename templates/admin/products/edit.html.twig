@@ -5,7 +5,7 @@
 {% block body %}
     <main class="container">
         <section class="row">
-            <div class="col-12">
+            <div class="col-12 m-3">
                 <h1>Modifier un produit</h1>
                 {% include "admin/products/_form.html.twig" with {'button_label': 'Modifier'} %}
             </div>
@@ -13,6 +13,8 @@
     </main>
 {% endblock %}
 
+
+{# apelle du image.js pour le ajax #}
 {% block javascripts %}
     <script src="{{ asset('assets/js/images.js') }}" defer></script>
 {% endblock %}

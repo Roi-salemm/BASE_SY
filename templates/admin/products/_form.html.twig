@@ -8,13 +8,22 @@
 
     {# On affiche les images si on est en édition #}
     {% if app.request.attributes.get('_route') == 'admin_products_edit' %}
+
+    {# <fieldset>  #}
         <h2>Images</h2>
-        {% for image in product.images %}
-            <div>
-                <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ image.name ) }}" alt="Image" width="150">
-                <a href="{{ path('admin_products_delete_image', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
-            </div>
-        {% endfor %}
+        <div class="row">
+            {% for image in product.images %}
+                <div class="col-4">
+                    {# les images #}
+                    <img src="{{ asset('assets/uploads/products/mini/300x300-' ~ image.name ) }}" alt="Image" width="150" class="m-3">
+
+                    {# suppression  #}
+                    <a href="{{ path('admin_products_delete_image', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+                </div>
+            {% endfor %}
+        </div>
+    {# </fieldset> #}
+    
     {% endif %}
 
     {# Le {{ button_label|default('Ajouter') }} permet de changer le btn  
