@@ -40,6 +40,7 @@ class ProductsController extends AbstractController
     {
         // $pro = $productsRepository->find('id');
 
+        //TODO Au moment de l'affichage produit le prix n'est pas identique a celuis en base de données
         return $this->render('products/details.html.twig', [
             // 'product' => $pro,
             // 'categories' => $categories,

@@ -9,6 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+//? Permet de personaliser les types attendu pour chaques entré cf #[Assert\NotBlank()]
+//* Si le require est supprimer du formulaire le message apparait 
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
@@ -24,6 +28,13 @@ class Products
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le nom du produit ne peut pas être vide')]
+    #[Assert\Length(
+        min: 5,
+        max: 150,
+        minMessage: 'Le titre doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Le titre ne doit pas faire plus de {{ limit }} caractères'
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -33,6 +44,7 @@ class Products
     private ?int $price = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero(message: 'Le stock ne peut pas etre nagatif')]
     private ?int $stock = null;
 
     // #[ORM\Column]

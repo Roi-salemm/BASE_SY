@@ -8,10 +8,13 @@ use App\Repository\CategoriesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Positive;
+// use App\Validator\Constraints\ImageFile;
 
 class ProductsFormType extends AbstractType
 {
@@ -22,8 +25,15 @@ class ProductsFormType extends AbstractType
                 'label' => 'nom'
             ])
             ->add('description')
-            ->add('price', options:[
-                'label' => 'prix'
+
+            //* MoneyType permet de arjouter le type de monay dans l'input et le passe en decimal 
+            ->add('price', MoneyType::class, options:[
+                'label' => 'prix',
+                'divisor' => 100,
+                //* Supper contrainte 
+                'constraints' => [new Positive(
+                    message: 'Le prix ne peut etre nagatif'
+                )]
             ])
             ->add('stock',options:[
                 'label' => 'Unité en stock'
@@ -45,14 +55,16 @@ class ProductsFormType extends AbstractType
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 // 'constraints' => [
                 //     new All(
                 //         new Image([
                 //             'maxWidth' => 1280,
                 //             'maxWidthMessage' => 'L\'image doit faire {{ max_width }} pixels de large au maximum'
+
                 //         ])
-                //     )
+                //     ),
+
                 // ]
             ])
         ;
