@@ -4,24 +4,27 @@
 
     {% block body %}
         <main class="container">
-            <secrion class="row">
+            <section class="row">
                 {% for item in products %}
-
+                {# {{ dump(item.id) }} #}
                     <div class="col-4">
-                        <div class="card" style="width: 18rem;">
-                            <h1>{{ item.name }}</h1>
-                            <img src="{{ asset('assets/uploads/products/mini/300x300-'~ item.images[0].name ) }}" class="card-img-top vitrine__image" alt="{{ item.name }}">
+                        <div class="card m-3" style="width: 18rem;">
+                            
+                            {# <div class="card-img-top"> #}
+                            <img src="{{ asset('assets/uploads/products/mini/300x300-'~ item.images[0].name ) }}" class="card-img-top" alt="{{ item.name }}">
+                            
                             <div class="card-body">
+                                <h1>{{ item.name }}</h1>
                                 {# <h5 class="card-title">Card title</h5> #}
                                 <p>{{ item.description }}</p>
-                                <a href="{{ path('produits_details', {slug: item.id }) }}" class="btn btn-primary">voir {{ item.name }}</a>
+                                <a href="{{ path('produits_details', {id: item.id}) }}" class="btn btn-primary">voir {{ item.name }}</a>
                             </div>
-                        </div>     
+                        </div>
                     </div>
 
                 {% endfor %}
 
-            </secrion>
+            </section>
         </main>
 
     {% endblock %}

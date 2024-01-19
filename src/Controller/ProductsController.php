@@ -14,11 +14,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ProductsController extends AbstractController
 {
     // ^^ indexProduits
-    #[Route('/index', name: 'produits')]
+    #[Route('/index', name: 'vitrine')]
     public function index(Categories $categories, ProductsRepository $productsRepository): Response
     {
 
         $pro = $productsRepository->findBy([], ['name' => 'asc']);
+
+        // dd($pro);
       
         // $session = $this->requestStack->getSession();
         // dd($pro);
@@ -31,26 +33,32 @@ class ProductsController extends AbstractController
             'categories' => $categories,
         ]);
     }
-
+   
     // ^^ produitsDetails
-    #[Route('/{slug}', name: 'details')]
-    public function details(Products $product, Categories $categories, ProductsRepository $productsRepository): Response
+    #[Route('{id}', name: 'details')]
+    public function details(Products $product, ProductsRepository $productsRepository, ): Response
     {
-        // $pro = $productsRepository->findby(4); //by id
-        // dd($pro);
-
-        // $tragetProduct = $this->getDoctrine()->getRepository(Products::class)->findOneBy(['slug' => $slug]);
-        // $pro = $productsRepository->findBy([($slug)], ['name' => 'asc']);
-        // dd($pro);
+        // $pro = $productsRepository->find('id');
 
         return $this->render('products/details.html.twig', [
-            // 'controller_name' => 'ProductsController',
-            // 'products' => $pro,
+            // 'product' => $pro,
             // 'categories' => $categories,
-            // compact($products),
-            // compact($categories),
+            'product' => $product,
+            // 'name' => $productsRepository->findAll()
+
         ]);
     }
+
+
+    //&& TEST produitsDetails
+    #[Route('/truc{slug}', name: 'test')]
+    public function test(Products $product, Categories $categories, ProductsRepository $ProductsRepository): Response
+    {
+        return $this->render('products/details.html.twig', [
+        ]);
+    }
+
+
 
     // ^^ produitsList
     #[Route('/list/{slug}', name: 'produitsList')]
