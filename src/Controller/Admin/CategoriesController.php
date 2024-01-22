@@ -2,9 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Cat;
 use App\Entity\Categories;
 use App\Form\CategoriesFormType;
 use App\Repository\CategoriesRepository;
+use App\Repository\CatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,16 +45,18 @@ class CategoriesController extends AbstractController
 
     #[Route('/ajout', name: 'add')]
     public function add(
-        Request $request, 
+        Request $request,
+        Cat $cat, 
         EntityManagerInterface $em, 
-        CategoriesRepository $categoriesRepository): Response
+        CategoriesRepository $categoriesRepository,
+        CatRepository $catRepository): Response
     {
         //* Pour refuser les users avec d'autre role que ROLE_ADMIN
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         //^^ Pour ajout :
         //* récuperation des champs d'entity ettendu 
-        $newCategorie = new Categories();
+        $newCategorie = new Cat();
 
         //* création du formulaire
         $categorieForm = $this->createForm(CategoriesFormType::class, $newCategorie);

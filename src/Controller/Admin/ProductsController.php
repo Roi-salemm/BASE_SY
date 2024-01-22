@@ -76,7 +76,7 @@ class ProductsController extends AbstractController
             // $product->setPrice($prix);
 
             //  dd($product);
-
+            
             // On stocke
             $em->persist($product);
             $em->flush();
@@ -179,7 +179,7 @@ class ProductsController extends AbstractController
 
         // $deleteProduct = $productsRepository->deleteProduct($id);
 
-        $allproducts = $productsRepository->findAll();
+       
         $product = $productsRepository->find($id);
         // $image = $imagesRepository->find($id);
 
@@ -188,6 +188,7 @@ class ProductsController extends AbstractController
         $em->remove($product);
         $em->flush();
 
+        $allproducts = $productsRepository->findAll();
 
         // $productsRepository->deleteProductWithImage($id);
         $this->addFlash('success', 'Produit supprimé avec succès');

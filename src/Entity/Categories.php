@@ -21,8 +21,8 @@ class Categories
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
     private ?self $parent = null;   
 
-    // #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    // private Collection $categories;
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class)]
     private Collection $products;
