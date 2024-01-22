@@ -45,4 +45,61 @@ class ProductsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function getAllProducts(): Array{
+        $products = $this->createQueryBuilder('p'); 
+        $requette = $products ->select('')     
+        // ->select('p', 'c', 'i') // Sélectionne les entités Product (p), Category (c), et Image (i)
+        ->leftJoin('p.categories', 'c') // Jointure avec Category (p.category)
+        ->where('c.id = p.categories')
+        // ->leftJoin('p.images', 'i') // Jointure avec Image (p.image)
+        // ->andwhere('i.id = p.images')
+        ->getQuery(); 
+        // var_dump($requette);
+        $result = $requette->getResult();
+        return $result;
+    }
+
+    public function deleteProduct($id): Array{
+        $products = $this->createQueryBuilder('p'); 
+        $requette = $products ->select($id)     
+        // ->select('p', 'c', 'i') // Sélectionne les entités Product (p), Category (c), et Image (i)
+        ->leftJoin('p.images', 'i') // Jointure avec Category (p.category)
+        ->where('i.id = p.images')
+        // ->leftJoin('p.images', 'i') // Jointure avec Image (p.image)
+        // ->andwhere('i.id = p.images')
+        ->getQuery(); 
+        // var_dump($requette);
+        $result = $requette->getResult();
+        return $result;
+   }
+
+   public function deleteProductWithImage($Id)
+   {
+       $entityManager = $this->getEntityManager();
+
+       $product = $this->find($Id);
+
+       if (!$product) {
+           // Gérer le cas où le produit n'est pas trouvé
+           return;
+       }
+
+       $image = $product->getImages();
+
+       if ($image) {
+           // Supprimer l'image associée au produit
+           $entityManager->remove($image);
+       }
+
+       // Supprimer le produit lui-même
+       $entityManager->remove($product);
+
+       // Appliquer les changements dans la base de données
+       $entityManager->flush();
+   }
+
+
+
+
 }

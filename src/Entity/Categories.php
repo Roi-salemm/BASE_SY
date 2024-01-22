@@ -19,14 +19,14 @@ class Categories
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
-    private ?self $parent = null;
+    private ?self $parent = null;   
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    private Collection $categories;
+    // #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    // private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class)]
     private Collection $products;
-
+    
     #[ORM\Column(nullable: true)]
     private ?int $categoryOrder = null;
 

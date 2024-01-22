@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Images;
 use App\Entity\Products;
 use App\Form\ProductsFormType;
+use App\Repository\ImagesRepository;
 use App\Repository\ProductsRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,6 +49,9 @@ class ProductsController extends AbstractController
         //^^ traite la requête du formulaire
         $productForm->handleRequest($request);
 
+
+  
+
         //* si le formulaire est soumis && valide
         if($productForm->isSubmitted() && $productForm->isValid()){
             //^^ On récupère les images
@@ -83,6 +87,7 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('admin_products_add');
         }
 
+// dd($productForm);  
 
         // return $this->render('admin/products/add.html.twig',[
         //     'productForm' => $productForm->createView()
@@ -164,12 +169,33 @@ class ProductsController extends AbstractController
 
 
     #[Route('/suppression/{id}', name: 'delete')]
-    public function delete(Products $product): Response
+    public function delete($id, Products $product, 
+    ProductsRepository $productsRepository,
+    EntityManagerInterface $em,
+    ImagesRepository $imagesRepository ): Response
     {
         //* Verif de si l'utilisateur peut supprimer avec le voter
         $this->denyAccessUnlessGranted('PRODUCT_DELETE', $product);
 
-        return $this->render('admin/products/index.html.twig');
+        // $deleteProduct = $productsRepository->deleteProduct($id);
+
+        $allproducts = $productsRepository->findAll();
+        $product = $productsRepository->find($id);
+        // $image = $imagesRepository->find($id);
+
+        // dd($image);
+
+        $em->remove($product);
+        $em->flush();
+
+
+        // $productsRepository->deleteProductWithImage($id);
+        $this->addFlash('success', 'Produit supprimé avec succès');
+    
+
+        return $this->render('admin/products/index.html.twig',[
+            'produits' => $allproducts,
+        ]);
     }
 
 

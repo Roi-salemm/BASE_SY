@@ -61,17 +61,18 @@
 <br>
 
 
-            
+
+{#             
         {% for pro in products %}
             <div class="col-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h3 class="card-title">{{ pro.name }}</h3>
+                        <h3 class="card-title">{{ pro.name }}</h3> #}
                         {# <a href="{{ path('produits_list', {"slugName": pro.name }) }}" class="btn btn-primary">voir {{ pro.name }}</a> #}
-                    </div>
+                    {# </div>
                 </div>
             </div>  
-        {% endfor %}
+        {% endfor %} #}
 
         
         

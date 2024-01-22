@@ -55,7 +55,7 @@ class ProductsFormType extends AbstractType
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => true,
+                'required' => false, //? Choix lle sont en 'NULL' dans la base -> pour ne pas les doublé lors de la mododification de produits
                 // 'constraints' => [
                 //     new All(
                 //         new Image([
