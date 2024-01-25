@@ -18,8 +18,8 @@ class Categories
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(length: 255)]
-    private ?string $parent = null;   
+    // #[ORM\ManyToOne(length: 255)]
+    // private ?string $parent = null;   
 
     // #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
     // private ?self $parent = null;   
