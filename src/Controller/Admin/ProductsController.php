@@ -166,8 +166,6 @@ class ProductsController extends AbstractController
     }
 
 
-
-
     #[Route('/suppression/{id}', name: 'delete')]
     public function delete($id, Products $product, 
     ProductsRepository $productsRepository,
@@ -179,7 +177,7 @@ class ProductsController extends AbstractController
 
         // $deleteProduct = $productsRepository->deleteProduct($id);
 
-        $allproducts = $productsRepository->findAll();
+        
         $product = $productsRepository->find($id);
         // $image = $imagesRepository->find($id);
 
@@ -188,6 +186,7 @@ class ProductsController extends AbstractController
         $em->remove($product);
         $em->flush();
 
+        $allproducts = $productsRepository->findAll();
 
         // $productsRepository->deleteProductWithImage($id);
         $this->addFlash('success', 'Produit supprimé avec succès');

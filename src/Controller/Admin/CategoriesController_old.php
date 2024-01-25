@@ -1,25 +1,27 @@
 <?php
 
-namespace App\Controller\Admin;
+// namespace App\Controller\Admin;
 
-use App\Entity\Categories;
-use App\Form\CategoriesFormType;
-use App\Repository\CategoriesRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+// use App\Entity\Cat;
+// use App\Entity\Categories;
+// use App\Form\CategoriesFormType;
+// use App\Repository\CategoriesRepository;
+// use App\Repository\CatRepository;
+// use Doctrine\ORM\EntityManagerInterface;
+// use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+// use Symfony\Component\HttpFoundation\Request;
+// use Symfony\Component\HttpFoundation\Response;
+// use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Serializer\SerializerInterface;
+// use Symfony\Component\Serializer\SerializerInterface;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\String\Slugger\SluggerInterface;
+// use Symfony\Component\HttpFoundation\JsonResponse;
+// use Symfony\Component\String\Slugger\SluggerInterface;
 
 
-#[Route('/admin/categories', name: 'admin_categories_')]
-class CategoriesController extends AbstractController
-{
+// #[Route('/admin/categories', name: 'admin_categories_')]
+// class CategoriesController_old extends AbstractController
+// {
 
     // public function __construct(SerializerInterface $serializer)
     // {
@@ -27,54 +29,64 @@ class CategoriesController extends AbstractController
     // }
 
 
-    #[Route('/', name: 'index')]
-    public function index(CategoriesRepository $categoriesRepository): Response
-    {
-        $categories = $categoriesRepository->findBy([], [
-            'categoryOrder' => 'asc'
-        ]);
+    // #[Route('/', name: 'index')]
+    // public function index(CategoriesRepository $categoriesRepository): Response
+    // {
+    //     $categories = $categoriesRepository->findBy([], [
+    //         'categoryOrder' => 'asc'
+    //     ]);
 
-        return $this->render('admin/categories/index.html.twig', 
-        compact('categories')
-    );
-    }
+    //     return $this->render('admin/categories/index.html.twig', 
+    //     compact('categories')
+    // );
+    // }
 
 
 
-    #[Route('/ajout', name: 'add')]
-    public function add(
-        Request $request, 
-        EntityManagerInterface $em, 
-        CategoriesRepository $categoriesRepository): Response
-    {
-        //* Pour refuser les users avec d'autre role que ROLE_ADMIN
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    // #[Route('/ajout', name: 'add')]
+    // public function add(
+    //     Request $request,
+    //     EntityManagerInterface $em, 
+    //     CategoriesRepository $categoriesRepository,
+    //     ): Response
+    // {
+    //     //* Pour refuser les users avec d'autre role que ROLE_ADMIN
+    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        //^^ Pour ajout :
-        //* récuperation des champs d'entity ettendu 
-        $newCategorie = new Categories();
+    //     //^^ Pour ajout :
+    //     //* récuperation des champs d'entity ettendu 
+    //     $newCategorie = new Categories();
 
-        //* création du formulaire
-        $categorieForm = $this->createForm(CategoriesFormType::class, $newCategorie);
-        //* traite la requête du formulaire
-        $categorieForm->handleRequest($request);
-       
-            //* réception du form :
-            if(($categorieForm->isSubmitted()) && ($categorieForm->isValid())){
-                //* -> La Base 
+    //     //* création du formulaire
+    //     $categorieForm = $this->createForm(CategoriesFormType::class, $newCategorie);
+    //     //* traite la requête du formulaire
+    //     $categorieForm->handleRequest($request);
+
+    //         //* réception du form :
+    //         if(($categorieForm->isSubmitted()) && ($categorieForm->isValid())){
+    //             //* -> La Base 
                 
-                $em->persist($newCategorie);
-                $em->flush();
-                $this->addFlash('success', 'Nouvelle Catégorie ajouté avec succès');
+    //             $em->persist($newCategorie);
+    //             $em->flush();
+    //             $this->addFlash('success', 'Nouvelle Catégorie ajouté avec succès');
             
-            // On redirige
-            return $this->redirectToRoute('admin_categories_index');
-            }
+    //         // On redirige
+    //         return $this->redirectToRoute('admin_categories_index');
+    //         }
 
-        return $this->renderForm('admin/categories/add.html.twig', [
-            'categorie' => $categorieForm->createView(),
-        ]);
-    }
+    //     return $this->renderForm('admin/categories/add.html.twig', [
+    //         'categorie' => $categorieForm->createView(),
+    //     ]);
+    // }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -161,4 +173,4 @@ class CategoriesController extends AbstractController
 
 
 
-}
+// } #}
